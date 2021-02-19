@@ -21,7 +21,8 @@ const Dashboard = () => {
   const [editingUser, setEditingUser] = useState({});
   const [showModal, setShowModal] = useState(false);
   const { user, signOut } = useAuth();
-  const deletedsNumber = parseInt(localStorage.getItem('deleteds'));
+  var deleteds = 0;
+  var deletedsNumber = parseInt(localStorage.getItem('deleteds'));
 
   useEffect(() => {
     async function loadUsers() {
@@ -64,11 +65,23 @@ const Dashboard = () => {
 
   async function handleDeleteUser(id) {
     try {
-      await api.delete(`/users/${id}`);
+      const response = await api.delete(`/users/${id}`);
 
-      var deleteds = parseInt(localStorage.getItem('deleteds'));
+      var value = parseInt(localStorage.getItem('deleteds'));
 
-      localStorage.setItem('deleteds', `${(deleteds = deleteds + 1)}`);
+      if (response) {
+        if (isNaN(value)) {
+          localStorage.setItem('deleteds', `${(deleteds = deleteds + 1)}`);
+
+          user.id === id ? signOut() : window.location.reload();
+
+          return window.location.reload();
+        }
+      }
+
+      var deletes = parseInt(localStorage.getItem('deleteds'));
+
+      localStorage.setItem('deleteds', `${++deletes}`);
 
       user.id === id ? signOut() : window.location.reload();
     } catch (err) {
@@ -92,7 +105,7 @@ const Dashboard = () => {
               <p>Total de usuários deletados</p>
             </header>
             <h1 data-testid="balance-outcome">
-              {deletedsNumber === null ? 0 : deletedsNumber}
+              {isNaN(deletedsNumber) ? 0 : deletedsNumber}
             </h1>
           </Card>
         </CardContainer>

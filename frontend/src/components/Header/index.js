@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback } from 'react';
 
 import { FiUserPlus, FiLogOut, FiList } from 'react-icons/fi';
 
@@ -12,14 +12,11 @@ import api from '../../services/api';
 
 import logoImg from '../../assets/vp.png';
 
-import getValidationErrors from '../../utils/getValidationErrors';
-
 import { useAuth } from '../../hooks/auth';
 
 const Header = () => {
   const [showModal, setShowModal] = useState(false);
   const { signOut } = useAuth();
-  const formEditRef = useRef(null);
 
   const openModal = () => {
     setShowModal((prev) => !prev);

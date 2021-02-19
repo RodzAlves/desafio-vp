@@ -6,6 +6,10 @@
 
 ### Nesse desafio foi construido uma API Rest em NodeJS para gerenciar os usuários utilizando Postgres como Banco de Dados, juntamente a um front-end desenvolvido com ReactJS e Styled Components. Foi implementado também a autenticação com JSON Web Token.
 
+<h4 align="center">
+  <img src="./frontend/src/assets/demonstration-vp.png" width="1000"/>
+</h4>
+
 # <b>⚡ Features</b>
 
 ## Back-end

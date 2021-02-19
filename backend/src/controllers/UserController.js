@@ -1,3 +1,25 @@
 const User = require('../models/User');
 
-module.exports = {};
+module.exports = {
+  async createUser(request, response) {
+    try {
+      const { email } = request.body;
+
+      const findUserExists = await User.findOne({ where: { email } });
+
+      if (findUserExists) {
+        return response.status(409).send({ message: 'E-mail já registrado.' });
+      }
+
+      await User.create(request.body);
+
+      const { password, ...user } = request.body;
+
+      return response.json(user);
+    } catch (err) {
+      return response
+        .status(400)
+        .send({ message: 'Criação de usuário falhou.' });
+    }
+  },
+};

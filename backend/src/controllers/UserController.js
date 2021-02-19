@@ -22,4 +22,16 @@ module.exports = {
         .send({ message: 'Criação de usuário falhou.' });
     }
   },
+
+  async getAllUsers(request, response) {
+    try {
+      const users = await User.findAll();
+
+      return response.json(users);
+    } catch (err) {
+      return response
+        .status(400)
+        .send({ message: 'Buscar todos os usuários falhou.' });
+    }
+  },
 };

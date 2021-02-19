@@ -1,0 +1,8 @@
+const path = require('path');
+
+// Configurando raiz para o Sequelize-CLI saber.
+module.exports = {
+  config: path.resolve(__dirname, 'src', 'config', 'database.js'),
+  // Configuração de raiz para criação de migrations
+  'migrations-path': path.resolve(__dirname, 'src', 'database', 'migrations'),
+};

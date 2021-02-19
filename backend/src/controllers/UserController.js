@@ -34,4 +34,22 @@ module.exports = {
         .send({ message: 'Buscar todos os usuários falhou.' });
     }
   },
+
+  async getUserById(request, response) {
+    try {
+      const user = await User.findByPk(request.params.id);
+
+      if (!user) {
+        return response.status(400).send({ message: 'Usuário não existe.' });
+      }
+
+      const { password, ...userById } = user;
+
+      return response.json(userById);
+    } catch (err) {
+      return response
+        .status(400)
+        .send({ message: 'Buscar um usuário falhou.' });
+    }
+  },
 };

@@ -52,4 +52,22 @@ module.exports = {
         .send({ message: 'Buscar um usuário falhou.' });
     }
   },
+
+  async deleteUser(request, response) {
+    try {
+      const userDelete = await User.findByPk(request.params.id);
+
+      if (!userDelete) {
+        return response.status(400).send({ message: 'Usuário não existe.' });
+      }
+
+      userDelete.destroy(request.body);
+
+      return response.status(200).send({ message: 'Usuário deletado.' });
+    } catch (err) {
+      return response
+        .status(400)
+        .send({ message: 'Deletar um usuário falhou.' });
+    }
+  },
 };

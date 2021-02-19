@@ -70,4 +70,23 @@ module.exports = {
         .send({ message: 'Deletar um usuário falhou.' });
     }
   },
+
+  async updateUser(request, response) {
+    try {
+      const userUpdate = await User.findByPk(request.params.id);
+      const data = request.body;
+
+      if (!userUpdate) {
+        return response.status(400).send({ message: 'Usuário não existe.' });
+      }
+
+      userUpdate.update(data);
+
+      return response.status(200).send({ message: 'Usuário atualizado.' });
+    } catch (err) {
+      return response
+        .status(400)
+        .send({ message: 'Deletar um usuário falhou.' });
+    }
+  },
 };
